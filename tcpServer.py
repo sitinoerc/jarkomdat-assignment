@@ -1,5 +1,5 @@
 from socket import *
-import time
+import datetime
 import threading
 
 serverPort = 12000
@@ -7,7 +7,7 @@ serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('',serverPort))
 serverSocket.listen(1)
-print('The server is ready to receive')
+print('Thread trying to create Object Input/Output Streams')
 
 clients = []
 usernames = []
@@ -46,7 +46,11 @@ while True:
 
     # Print And Broadcast Username
     print("Username is {}".format(username))
-    broadcast("*** {} has joined the chat room. ***".format(username).encode())
+    x = (datetime.datetime.now())
+    hour = str(x.hour)
+    min = str(x.minute)
+    sec = str(x.second)
+    broadcast("{}:{}:{} *** {} has joined the chat room. ***".format(hour, min, sec, username).encode())
     
 
     # Start Handling Thread For Client
