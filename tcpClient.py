@@ -1,3 +1,6 @@
+"""Referensi kode dibaawah ini berasal dari : https://www.neuralnine.com/tcp-chat-in-python/"""
+
+
 from socket import *
 from datetime import datetime
 import threading, traceback
