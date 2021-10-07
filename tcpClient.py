@@ -1,5 +1,5 @@
 from socket import *
-import datetime
+from datetime import datetime
 import threading, traceback
 
 serverAddress = 'localhost'
@@ -33,11 +33,9 @@ def receive():
 
 def write():
     while True:
-        x = (datetime.datetime.now())
-        hour = str(x.hour)
-        min = str(x.minute)
-        sec = str(x.second)
-        message = '{}:{}:{} {}: {}'.format(hour, min, sec, username, input(''))
+        now = datetime.now()
+        jam = now.strftime('%H:%M:%S')
+        message = '{}: {}'.format(jam, username, input(''))
         clientSocket.send(message.encode())
 
 receive_thread = threading.Thread(target=receive)

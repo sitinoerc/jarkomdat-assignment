@@ -1,5 +1,5 @@
 from socket import *
-import datetime
+from datetime import datetime
 import threading
 
 serverPort = 12000
@@ -46,11 +46,9 @@ while True:
 
     # Print And Broadcast Username
     print("Username is {}".format(username))
-    x = (datetime.datetime.now())
-    hour = str(x.hour)
-    min = str(x.minute)
-    sec = str(x.second)
-    broadcast("{}:{}:{} *** {} has joined the chat room. ***".format(hour, min, sec, username).encode())
+    now = datetime.now()
+    jam = now.strftime('%H:%M:%S')
+    broadcast("{} *** {} has joined the chat room. ***".format(jam, username).encode())
     
 
     # Start Handling Thread For Client
