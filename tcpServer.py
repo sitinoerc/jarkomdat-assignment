@@ -9,7 +9,7 @@ serverSocket.listen(1)
 print('The server is ready to receive')
 
 clients = []
-nicknames = []
+usernames = []
 
 def broadcast(message):
     for client in clients:
@@ -26,24 +26,27 @@ def handle(client):
             index = clients.index(client)
             clients.remove(client)
             client.close()
-            nickname = nicknames[index]
-            broadcast('{} left!'.format(nickname).encode())
-            nicknames.remove(nickname)
+            username = usernames[index]
+            broadcast('{} left!'.format(username).encode())
+            usernames.remove(username)
             break
 while True:
     connectionSocket, addr = serverSocket.accept()
     print("Connected with {}".format(str(addr)))
 
-    # Request And Store Nickname
-    connectionSocket.send('NICK'.encode())
-    nickname = connectionSocket.recv(1024).decode()
-    nicknames.append(nickname)
+    # Request And Store username
+    connectionSocket.send('CLIENT'.encode())
+    username = connectionSocket.recv(1024).decode()
+
+    # connectionSocket.send('Connection acepted {}'.format(str(addr)).encode())
+
+    usernames.append(username)
     clients.append(connectionSocket)
 
-    # Print And Broadcast Nickname
-    print("Nickname is {}".format(nickname))
-    broadcast("{} joined!".format(nickname).encode())
-    connectionSocket.send('Connected to server!'.encode())
+    # Print And Broadcast Username
+    print("Username is {}".format(username))
+    broadcast("*** {} has joined the chat room. ***".format(username).encode())
+    
 
     # Start Handling Thread For Client
     thread = threading.Thread(target=handle, args=(connectionSocket,))

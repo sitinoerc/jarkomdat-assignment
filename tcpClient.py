@@ -7,16 +7,19 @@ serverPort = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
 clientSocket.connect((serverAddress,serverPort))
 
-nickname = input("Enter your nickname: ")
+username = input("Enter your username: ")
 
 def receive():
     while True:
         try:
             # Receive Message From Server
-            # If 'NICK' Send Nickname
+            # If 'CLIENT' Send Username
             message = clientSocket.recv(1024).decode()
-            if message == 'NICK':
-                clientSocket.send(nickname.encode())
+            if message == 'CLIENT':
+                clientSocket.send(username.encode())
+                print("Hello.! Welcome to the chatroom.\n instructions:")
+                print("1. Simply type the message to send broadcast to all active clients\n2. Type @username<space>yourmessage' without quotes to send message to desired client")
+                print("3. Type 'WHOISIN' without quotes to see list of active clients\n4. Type 'LOGOUT without quotes to logoff server")
             else:
                 print(message)
         except:
@@ -28,7 +31,7 @@ def receive():
 
 def write():
     while True:
-        message = '{}: {}'.format(nickname, input(''))
+        message = '{}: {}'.format(username, input(''))
         clientSocket.send(message.encode())
 
 receive_thread = threading.Thread(target=receive)
