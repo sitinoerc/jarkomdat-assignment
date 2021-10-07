@@ -32,6 +32,7 @@ def handle(client):
             client.close()
             username = usernames[index]
             broadcast('{} left!'.format(username).encode())
+            print("Username {} telah keluar".format(username))
             usernames.remove(username)
             break
 while True:
@@ -48,10 +49,10 @@ while True:
     clients.append(connectionSocket)
 
     # Print And Broadcast Username
-    print("Username is {}".format(username))
+    print("Username {} telah terdaftar".format(username))
     now = datetime.now()
     jam = now.strftime('%H:%M:%S')
-    broadcast("{} *** {} has joined the chat room. ***".format(jam, username).encode())
+    broadcast("[{}] *** {} has joined the chat room. ***".format(jam, username).encode())
     
 
     # Start Handling Thread For Client
