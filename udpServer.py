@@ -18,7 +18,6 @@ usernames = []
 def broadcast(message):
     for client in clients:
         serverSocket.sendto(message, client)
-    print(usernames)
 
 def handle(client):
     while(True):
@@ -40,7 +39,6 @@ def handle(client):
 while True:
     message, clientAddress = serverSocket.recvfrom(2048)
     temp = str(message.decode())
-    print(temp)
 
     if temp[0:5] == 'LOGIN':
         print("Connected with {}".format(str(clientAddress)))

@@ -10,8 +10,8 @@ serverPort = 5050
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 inp = input("Enter your username (format: LOGIN [username]): ")
-username = inp [6:]
-clientSocket.sendto(username.encode(),(serverAddress, serverPort))
+username = inp[6:]
+clientSocket.sendto(inp.encode(),(serverAddress, serverPort))
 print("Hello.! Welcome to the chatroom.")
 print("Simply type the message to send broadcast to all active clients")
 
